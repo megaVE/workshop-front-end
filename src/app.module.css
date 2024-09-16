@@ -1,0 +1,40 @@
+.main {
+  padding: 2rem;
+}
+
+.link {
+  color: var(--color-mid-blue);
+  cursor: pointer;
+}
+
+.product-list {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+}
+
+.new {
+  border: 0.125rem solid var(--color-dark-blue);
+  padding: 0.5rem;
+  font-size: 1rem;
+
+  border-radius: 0.25rem;
+  margin-bottom: 1rem;
+
+  font-weight: bold;
+  background-color: var(--color-dark-blue);
+  color: #fff;
+
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 0.125rem;
+}
+
+@media (min-width: 768px) {
+  .product-list {
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
+}
