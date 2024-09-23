@@ -9,7 +9,7 @@ export function ShoppingBag({ style, size, ...props }: IconProps) {
       strokeWidth={1.5}
       stroke="currentColor"
       className="size-6"
-      style={{ width: `${size}rem`, height: `${size}rem`, ...style }}
+      style={{ width: size, height: size, ...style }}
       {...props}
     >
       <path

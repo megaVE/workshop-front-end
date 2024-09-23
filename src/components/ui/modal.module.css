@@ -15,12 +15,12 @@
 .popup {
   position: relative;
 
-  width: 50vw;
-  height: 80vh;
+  width: 95vw;
+  height: 95vh;
 
   border-radius: 0.5rem;
   padding: 1rem;
-  background-color: #fff;
+  background-color: var(--color-white);
   box-shadow: 0.25rem 0.25rem 1rem 0.5rem rgba(0, 0, 0, 0.5);
 }
 
@@ -35,8 +35,8 @@
   justify-content: center;
   align-items: center;
 
-  background-color: #8b0000;
-  color: #fff;
+  background-color: var(--color-red);
+  color: var(--color-white);
   border-radius: 50%;
 
   cursor: pointer;
@@ -49,4 +49,11 @@
   /* height: calc(80vh - 2rem); */
   max-height: calc(80vh - 2rem);
   padding: 0.5rem;
+}
+
+@media (min-width: 768px) {
+  .popup {
+    width: 50vw;
+    height: 80vh;
+  }
 }

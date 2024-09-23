@@ -45,6 +45,9 @@ input[type="number"] {
   /* Accent Colors */
   --color-sky-blue: #87ceeb;
   --color-silver: #c0c0c0;
+
+  /* Support Colors */
+  --color-red: #8b0000;
 }
 
 body {

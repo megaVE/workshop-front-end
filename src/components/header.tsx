@@ -11,7 +11,7 @@ export function Header({ query, setQuery }: HeaderProps) {
         <Cube size="2" />
         <span>UNIstore</span>
       </h1>
-      <form className={styles.query}>
+      <form className={styles.query} onSubmit={(e) => e.preventDefault()}>
         <input
           type="text"
           placeholder="Pesquise por algo..."
@@ -19,7 +19,7 @@ export function Header({ query, setQuery }: HeaderProps) {
           onChange={(e) => setQuery(e.target.value)}
         />
         <button type="submit">
-          <MagnifyingGlass size="1.5" />
+          <MagnifyingGlass size="1.5rem" />
         </button>
       </form>
     </header>

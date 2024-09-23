@@ -1,0 +1,64 @@
+{
+  "products": [
+    {
+      "name": "Wireless Headphones",
+      "description": "High-quality wireless headphones with noise cancellation.",
+      "price": 1050.67,
+      "id": "1"
+    },
+    {
+      "name": "Smartphone",
+      "description": "Latest model smartphone with 128GB storage and OLED display.",
+      "price": 899.99,
+      "id": "2"
+    },
+    {
+      "id": "3",
+      "name": "Gaming Laptop",
+      "description": "Powerful gaming laptop with 16GB RAM and RTX 3070 graphics card.",
+      "price": 1499.99
+    },
+    {
+      "id": "4",
+      "name": "Smart Watch",
+      "description": "Wearable smart watch with fitness tracking and heart rate monitor.",
+      "price": 249.99
+    },
+    {
+      "id": "5",
+      "name": "Bluetooth Speaker",
+      "description": "Portable Bluetooth speaker with 12-hour battery life and waterproof design.",
+      "price": 79.99
+    },
+    {
+      "id": "6",
+      "name": "Tablet",
+      "description": "10-inch tablet with 64GB storage and high-resolution display.",
+      "price": 329.99
+    },
+    {
+      "id": "7",
+      "name": "Wireless Mouse",
+      "description": "Ergonomic wireless mouse with adjustable DPI and silent clicks.",
+      "price": 49.99
+    },
+    {
+      "id": "8",
+      "name": "4K Monitor",
+      "description": "27-inch 4K monitor with HDR support and ultra-thin bezels.",
+      "price": 399.99
+    },
+    {
+      "id": "9",
+      "name": "Mechanical Keyboard",
+      "description": "RGB mechanical keyboard with customizable key switches.",
+      "price": 129.99
+    },
+    {
+      "id": "10",
+      "name": "External Hard Drive",
+      "description": "2TB external hard drive with USB-C connectivity.",
+      "price": 89.99
+    }
+  ]
+}

@@ -23,6 +23,8 @@
 
     text-shadow: 0.125rem 0.125rem 0.25rem rgba(255, 255, 255, 0.25);
     cursor: pointer;
+
+    margin-bottom: 0.25rem;
   }
 }
 
@@ -34,6 +36,10 @@
   .header {
     flex-direction: row;
     justify-content: space-between;
+
+    h1 {
+      margin-bottom: 0;
+    }
   }
 
   .header > * + * {
@@ -45,7 +51,7 @@
   display: flex;
   align-items: center;
 
-  background: #fff;
+  background: var(--color-white);
 
   padding: 0.1rem;
   position: relative;
@@ -64,7 +70,6 @@
     align-items: center;
 
     color: var(--color-dark-blue);
-    font-size: 1rem;
     cursor: pointer;
   }
 }
@@ -83,7 +88,7 @@
 
       width: calc(100% + 0.25rem);
       height: calc(100% + 0.25rem);
-      border: 0.125rem solid #fff;
+      border: 0.125rem solid var(--color-white);
       border-radius: 0.25rem;
     }
 

@@ -6,25 +6,42 @@ import type { Product } from "./@types/product";
 import { Header } from "./components/header";
 import { ItemCard } from "./components/item-card";
 
-import db from "./db.json";
 import { Modal } from "./components/ui/modal";
 import { PlusCircle } from "./components/ui/plus-circle";
 import { NewProductForm } from "./components/new-product-form";
 
-const App = () => {
+export function App() {
   const [editingProduct, setEditingProduct] = useState<Product | null>(null);
-  const [products, setProducts] = useState<Product[] | null>(db);
+  const [products, setProducts] = useState<Product[] | null | undefined>(null);
   const [query, setQuery] = useState<string>("");
-  const [showModal, setShowModal] = useState<boolean>(true);
+  const [showModal, setShowModal] = useState<boolean>(false);
 
-  const handleDeletion = (product: Product) => {
+  const filteredProducts = products?.filter((product) =>
+    product.name.includes(query)
+  );
+
+  const handleDeletion = async (product: Product) => {
     const shouldDelete = window.confirm(
       `Tem certeza de que deseja excluir '${product.name}'? Esta ação não poderá ser desfeita.`
     );
 
     if (!shouldDelete) return;
 
-    window.alert("Produto excluído com sucesso!");
+    try {
+      const response = await fetch(
+        `http://localhost:3000/products/${product.id}`,
+        {
+          method: "DELETE",
+        }
+      );
+
+      if (!response.ok) throw new Error("Bad response from server request.");
+
+      handleFetchData();
+      window.alert("Produto excluído com sucesso!");
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   const handleEdition = (product: Product) => {
@@ -38,10 +55,17 @@ const App = () => {
     handleFetchData();
   };
 
-  const handleFetchData = () => {
-    setProducts((state) => state);
+  const handleFetchData = async () => {
+    try {
+      const response = await fetch("http://localhost:3000/products");
+      const data = await response.json();
 
-    console.log("Data returned from backend");
+      setProducts(data);
+    } catch (error) {
+      console.error(error);
+
+      setProducts(undefined);
+    }
   };
 
   useEffect(() => {
@@ -60,30 +84,47 @@ const App = () => {
       )}
       <Header query={query} setQuery={setQuery} />
       <main className={styles.main}>
-        <button className={styles.new} onClick={() => setShowModal(true)}>
-          <PlusCircle size="1.5" />
+        <button
+          className={styles.new}
+          onClick={() => setShowModal(true)}
+          disabled={products === undefined}
+        >
+          <PlusCircle size="1.5rem" />
           <span>Cadastrar Novo Produto</span>
         </button>
-        {products ? (
-          <ul className={styles["product-list"]}>
-            {products.map((product) => (
-              <ItemCard
-                key={product.id}
-                product={product}
-                handleDeletion={handleDeletion}
-                onClick={() => handleEdition(product)}
-              />
-            ))}
-          </ul>
-        ) : (
+        {products === null && <p>Carregando produtos...</p>}
+        {products === undefined && (
           <p>
-            Nenhum produto encontrado. Por que você não tenta{" "}
-            <span className={styles.link}>cadastrar algum</span>?
+            Erro ao carregar produtos. Por favor, tente novamente mais tarde.
           </p>
+        )}
+        {products && (
+          <>
+            {filteredProducts && filteredProducts.length > 0 ? (
+              <ul className={styles["product-list"]}>
+                {filteredProducts.map((product) => (
+                  <ItemCard
+                    key={product.id}
+                    product={product}
+                    handleDeletion={handleDeletion}
+                    onClick={() => handleEdition(product)}
+                  />
+                ))}
+              </ul>
+            ) : (
+              <p>
+                Nenhum produto encontrado.{" "}
+                {!query && (
+                  <>
+                    Por que você não tenta{" "}
+                    <span className={styles.link}>cadastrar algum</span>?
+                  </>
+                )}
+              </p>
+            )}
+          </>
         )}
       </main>
     </>
   );
-};
-
-export default App;
+}

@@ -7,10 +7,8 @@
 
   flex: 1;
 
-  width: 15rem;
+  width: 85vw;
   height: 17rem;
-
-  transition-duration: 0.2s;
 
   h3 {
     cursor: pointer;
@@ -54,9 +52,9 @@
     right: -0.25rem;
 
     padding: 0.25rem;
-    background-color: #8b0000;
+    background-color: var(--color-red);
     border-radius: 2rem;
-    color: #fff;
+    color: var(--color-white);
 
     cursor: pointer;
   }
@@ -66,11 +64,20 @@
   .item {
     text-align: left;
     margin-bottom: 1rem;
+    transition-duration: 0.8s;
+    box-shadow: 0 0.125rem 0.5rem var(--color-dark-gray);
+
+    width: 15rem;
+    max-width: 15rem;
+    max-height: 17rem;
   }
 
   .item:hover {
-    height: 17.1rem;
-    margin-bottom: 0.9;
+    z-index: 70;
+    max-height: 25rem;
+    height: auto;
+
+    transform: scale(1.05);
 
     span {
       white-space: unset;

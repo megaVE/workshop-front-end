@@ -9,7 +9,6 @@ export function NewProductForm({
   handleClosePopup,
 }: NewProductFormProps) {
   const [newProduct, setNewProduct] = useState<Product>({
-    id: undefined,
     name: "",
     description: "",
     price: 0,
@@ -20,18 +19,39 @@ export function NewProductForm({
     setNewProduct((state) => ({ ...state, [e.target.name]: e.target.value }));
   };
 
-  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    if (editingProduct) {
-      // Update
-      window.alert("Produto editado com sucesso!");
-    } else {
-      // Create
-      window.alert("Produto criado com sucesso!");
-    }
+    try {
+      const response = await fetch(
+        `http://localhost:3000/products${
+          newProduct.id ? `/${newProduct.id}` : ""
+        }`,
+        {
+          method: editingProduct ? "PUT" : "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            ...newProduct,
+            price: Number(newProduct.price),
+          }),
+        }
+      );
 
-    handleClosePopup();
+      if (!response.ok) throw new Error("Bad response from server request.");
+
+      handleClosePopup();
+      if (editingProduct) {
+        window.alert("Produto editado com sucesso!");
+      } else {
+        window.alert("Produto criado com sucesso!");
+      }
+    } catch (error) {
+      console.error(error);
+
+      window.alert(
+        "Houver um erro no sistema. Por favor, tente novamente mais tarde."
+      );
+    }
   };
 
   return (
@@ -48,6 +68,7 @@ export function NewProductForm({
             type="text"
             name="name"
             id="name"
+            placeholder="Nome"
             value={newProduct.name}
             onChange={handleChangeProduct}
             required
@@ -59,6 +80,7 @@ export function NewProductForm({
             type="text"
             name="description"
             id="description"
+            placeholder="Descrição"
             value={newProduct.description}
             onChange={handleChangeProduct}
           />
@@ -69,6 +91,7 @@ export function NewProductForm({
             type="number"
             name="price"
             id="price"
+            placeholder="Preço"
             value={newProduct.price}
             onChange={handleChangeProduct}
             required

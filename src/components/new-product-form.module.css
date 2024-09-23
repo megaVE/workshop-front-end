@@ -45,7 +45,7 @@
 
   font-weight: bold;
   background-color: var(--color-dark-blue);
-  color: #fff;
+  color: var(--color-white);
 
   cursor: pointer;
 }
