@@ -1,0 +1,8 @@
+spring:
+  profiles:
+    active: dev
+
+server:
+  port: 9091
+  servlet:
+    context-path: /api/v1

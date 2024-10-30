@@ -1,0 +1,27 @@
+spring:
+  messages:
+    encoding: UTF-8
+    basename: messages
+  datasource:
+    url: jdbc:mysql://localhost:3306/workshop
+    username: root
+    password: unifal-mg
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  flyway:
+    url: jdbc:mysql://localhost:3306/workshop
+    user: root
+    password: unifal-mg
+    locations: classpath:db/migration
+
+logging:
+  level:
+    org:
+      springframework:
+        security: TRACE
+      hibernate:
+        SQL: DEBUG
+        type:
+          descriptor:
+            sql:
+              BasicBinder: TRACE
+      flywaydb: DEBUG
