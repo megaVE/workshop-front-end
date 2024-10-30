@@ -1,0 +1,59 @@
+.container {
+  position: fixed;
+  z-index: 100;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  backdrop-filter: blur(0.25rem);
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.popup {
+  position: relative;
+
+  width: 95vw;
+  height: 95vh;
+
+  border-radius: 0.5rem;
+  padding: 1rem;
+  background-color: var(--color-white);
+  box-shadow: 0.25rem 0.25rem 1rem 0.5rem rgba(0, 0, 0, 0.5);
+}
+
+.close {
+  position: absolute;
+  top: 0;
+  right: 0;
+  transform: translate(25%, -25%);
+  z-index: 110;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  background-color: var(--color-red);
+  color: var(--color-white);
+  border-radius: 50%;
+
+  cursor: pointer;
+}
+
+.content {
+  border-radius: 1rem;
+  /* background-color: var(--color-light-gray); */
+  width: 100%;
+  /* height: calc(80vh - 2rem); */
+  max-height: calc(80vh - 2rem);
+  padding: 0.5rem;
+}
+
+@media (min-width: 768px) {
+  .popup {
+    width: 50vw;
+    height: 80vh;
+  }
+}

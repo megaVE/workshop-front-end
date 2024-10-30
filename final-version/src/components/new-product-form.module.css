@@ -32,6 +32,10 @@
     border-radius: 0.125rem;
     width: 95%;
   }
+
+  span {
+    color: var(--color-red);
+  }
 }
 
 .submit {

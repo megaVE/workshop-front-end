@@ -13,12 +13,7 @@ import { NewProductForm } from "./components/new-product-form";
 export function App() {
   const [editingProduct, setEditingProduct] = useState<Product | null>(null);
   const [products, setProducts] = useState<Product[] | null | undefined>(null);
-  const [query, setQuery] = useState<string>("");
   const [showModal, setShowModal] = useState<boolean>(false);
-
-  const filteredProducts = products?.filter((product) =>
-    product.name.includes(query)
-  );
 
   const handleDeletion = async (product: Product) => {
     const shouldDelete = window.confirm(
@@ -37,7 +32,7 @@ export function App() {
 
       if (!response.ok) throw new Error("Bad response from server request.");
 
-      handleFetchData();
+      await handleFetchData();
       window.alert("Produto excluído com sucesso!");
     } catch (error) {
       console.error(error);
@@ -49,10 +44,11 @@ export function App() {
     setShowModal(true);
   };
 
-  const handleClosePopup = () => {
+  const handleClosePopup = async () => {
+    await handleFetchData();
+
     setShowModal(false);
     setEditingProduct(null);
-    handleFetchData();
   };
 
   const handleFetchData = async () => {
@@ -82,7 +78,7 @@ export function App() {
           />
         </Modal>
       )}
-      <Header query={query} setQuery={setQuery} />
+      <Header />
       <main className={styles.main}>
         <button
           className={styles.new}
@@ -100,27 +96,19 @@ export function App() {
         )}
         {products && (
           <>
-            {filteredProducts && filteredProducts.length > 0 ? (
+            {products.length > 0 ? (
               <ul className={styles["product-list"]}>
-                {filteredProducts.map((product) => (
+                {products.map((product) => (
                   <ItemCard
                     key={product.id}
                     product={product}
                     handleDeletion={handleDeletion}
-                    onClick={() => handleEdition(product)}
+                    handleEdition={handleEdition}
                   />
                 ))}
               </ul>
             ) : (
-              <p>
-                Nenhum produto encontrado.{" "}
-                {!query && (
-                  <>
-                    Por que você não tenta{" "}
-                    <span className={styles.link}>cadastrar algum</span>?
-                  </>
-                )}
-              </p>
+              <p>Nenhum produto encontrado.</p>
             )}
           </>
         )}

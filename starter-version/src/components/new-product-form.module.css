@@ -1,0 +1,55 @@
+.form {
+  h1 {
+    text-align: center;
+    margin: 1rem 0;
+  }
+}
+
+.fields {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* Fields */
+.fields div {
+  display: flex;
+  flex-direction: column;
+  gap: 0.125rem;
+
+  margin: 0.25rem 0;
+  width: 15rem;
+
+  label {
+    text-wrap: pretty;
+  }
+
+  input {
+    font-size: 1rem;
+    padding: 0.125rem;
+
+    border: 0.1rem solid black;
+    border-radius: 0.125rem;
+    width: 95%;
+  }
+
+  span {
+    color: var(--color-red);
+  }
+}
+
+.submit {
+  margin-top: 1rem;
+  border: 0.125rem solid var(--color-dark-blue);
+  padding: 0.5rem;
+  font-size: 1rem;
+
+  border-radius: 0.25rem;
+  margin-bottom: 1rem;
+
+  font-weight: bold;
+  background-color: var(--color-dark-blue);
+  color: var(--color-white);
+
+  cursor: pointer;
+}

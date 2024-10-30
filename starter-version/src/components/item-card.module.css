@@ -1,0 +1,86 @@
+.item {
+  position: relative;
+  background-color: var(--color-light-gray);
+  padding: 1rem;
+  border-radius: 1rem;
+  text-align: center;
+
+  flex: 1;
+
+  width: 85vw;
+  height: 17rem;
+
+  h3 {
+    cursor: pointer;
+  }
+
+  span {
+    font-size: 0.875rem;
+    color: var(--color-dark-gray);
+
+    display: inline-block;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 100%;
+  }
+}
+
+.item-image {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  margin-bottom: 0.75rem;
+  height: 10rem;
+
+  img {
+    aspect-ratio: 1/1;
+    max-height: 100%;
+    cursor: pointer;
+  }
+}
+
+.delete-button {
+  button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    position: absolute;
+    top: -0.25rem;
+    right: -0.25rem;
+
+    padding: 0.25rem;
+    background-color: var(--color-red);
+    border-radius: 2rem;
+    color: var(--color-white);
+
+    cursor: pointer;
+  }
+}
+
+@media (min-width: 768px) {
+  .item {
+    text-align: left;
+    margin-bottom: 1rem;
+    transition-duration: 0.8s;
+    box-shadow: 0 0.125rem 0.5rem var(--color-dark-gray);
+
+    width: 15rem;
+    max-width: 15rem;
+    max-height: 17rem;
+  }
+
+  .item:hover {
+    z-index: 40;
+    max-height: 25rem;
+    height: auto;
+
+    transform: scale(1.05);
+
+    span {
+      white-space: unset;
+    }
+  }
+}

@@ -73,7 +73,7 @@
   }
 
   .item:hover {
-    z-index: 70;
+    z-index: 40;
     max-height: 25rem;
     height: auto;
 

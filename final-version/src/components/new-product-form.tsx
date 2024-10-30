@@ -1,18 +1,31 @@
 import styles from "./new-product-form.module.css";
 
 import { type ChangeEvent, FormEvent, useState } from "react";
-import { Product } from "../@types/product";
-import type { NewProductFormProps } from "../@types/new-product-form-props";
+import type { Product } from "../@types/product";
+
+interface NewProductFormProps {
+  editingProduct?: Product | null;
+  handleClosePopup: () => void;
+}
 
 export function NewProductForm({
   editingProduct,
   handleClosePopup,
 }: NewProductFormProps) {
-  const [newProduct, setNewProduct] = useState<Product>({
-    name: "",
-    description: "",
-    price: 0,
-    ...editingProduct,
+  // const [name, setName] = useState<string>("")
+  // const [description, setDescription] = useState<string>("")
+  // const [price, setPrice] = useState<string>("")
+
+  const [newProduct, setNewProduct] = useState<Product>(() => {
+    if (editingProduct) {
+      return editingProduct;
+    } else {
+      return {
+        name: "",
+        description: "",
+        price: 0,
+      };
+    }
   });
 
   const handleChangeProduct = (e: ChangeEvent<HTMLInputElement>) => {
@@ -23,19 +36,31 @@ export function NewProductForm({
     e.preventDefault();
 
     try {
-      const response = await fetch(
-        `http://localhost:3000/products${
-          newProduct.id ? `/${newProduct.id}` : ""
-        }`,
-        {
-          method: editingProduct ? "PUT" : "POST",
+      let response: Response;
+      if (editingProduct) {
+        // Operação de Edição
+        response = await fetch(
+          "http://localhost:3000/products" + editingProduct.id,
+          {
+            method: "PUT",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+              ...newProduct,
+              price: Number(newProduct.price),
+            }),
+          }
+        );
+      } else {
+        // Operação de Criação
+        response = await fetch("http://localhost:3000/products", {
+          method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({
             ...newProduct,
             price: Number(newProduct.price),
           }),
-        }
-      );
+        });
+      }
 
       if (!response.ok) throw new Error("Bad response from server request.");
 
@@ -63,7 +88,9 @@ export function NewProductForm({
       </h1>
       <div className={styles.fields}>
         <div>
-          <label htmlFor="name">Nome do Produto:</label>
+          <label htmlFor="name">
+            Nome do Produto<span>*</span>:
+          </label>
           <input
             type="text"
             name="name"
@@ -75,7 +102,7 @@ export function NewProductForm({
           />
         </div>
         <div>
-          <label htmlFor="description">Descrição do Produto (Opcional):</label>
+          <label htmlFor="description">Descrição do Produto:</label>
           <input
             type="text"
             name="description"
@@ -86,7 +113,9 @@ export function NewProductForm({
           />
         </div>
         <div>
-          <label htmlFor="price">Preço do Produto:</label>
+          <label htmlFor="price">
+            Preço do Produto<span>*</span>:
+          </label>
           <input
             type="number"
             name="price"
